@@ -1,0 +1,38 @@
+/* 
+Character validation of user input 
+Y/N and y/n. 
+*/ 
+
+#include <iostream> 
+using namespace std; 
+
+int main()
+
+{
+    char choice; 
+    
+    cout << "Would you like to continue? Y/N" << endl; 
+    cin >> choice; 
+    
+    while (!((choice == 'Y') || (choice == 'y') || (choice == 'N') || (choice == 'n')))
+    {
+        cout << "Error please enter only valid choice Y/N" << endl; 
+        //clear the input 
+        cin.clear(); 
+        //discard the previous input 
+        cin.ignore(123, '\n'); 
+        cin >> choice; 
+    }
+    
+    if (choice == 'Y' || choice == 'y')
+    {
+        cout << "Thanks you agreed to proceed according to your input " << endl; 
+        cout << "Your input: " << choice << endl; 
+    }
+    else if (choice == 'N' || choice == 'n')
+    {
+        cout << "Thanks you declined to proceed according to your input " << endl; 
+        cout << "Your input: " << choice << endl; 
+    }
+    return 0; 
+}
