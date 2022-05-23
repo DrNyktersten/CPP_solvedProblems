@@ -1,0 +1,25 @@
+/*
+Validation of the integer numbers 
+*/ 
+#include <iostream> 
+using namespace std; 
+
+int main()
+{
+    int num; 
+    
+    cout << "Please enter a number" << endl; 
+    
+    while(!(cin >> num))
+    {
+        cout << "Please enter only numbers" << endl; 
+        //clear the input stream
+        cin.clear(); 
+        //discard previous input
+        cin.ignore(123, '\n'); 
+    }
+    
+    cout << "The number that you just entered " << num << endl; 
+    
+    return 0; 
+}
