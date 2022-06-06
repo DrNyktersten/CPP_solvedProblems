@@ -1,53 +1,76 @@
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
+#include <iostream> 
+using namespace std; 
 
-int main()
+const int SIZE = 10; 
+ 
+void getArrayValues(int[]); 
+int inputValidate(int); 
+int getLargestValue(int[]); 
+int getSmallestValue(int[]); 
+
+int main() 
 {
-	const int SIZE = 10; //Size of an array
-	int number[SIZE]; //number array with 10 elements
+	int array[SIZE]; 
+	int largest,
+		smallest; 
+	cout << "This program will display" << endl; 
+	cout << "largest/smallest value " << endl; 
 
-	cout << "Enter 10 values and," << endl;
-	cout << "I will display the lowest/highest number" << endl;
-	for (int i = 0; i < SIZE; i++)
-	{
-		cout << "number " << i + 1 << ": ";
-		cin >> number[i];
-		while (!(cin >> number[i]))
-		{
-			cout << "Please enter only numbers" << endl;
-			//clear the input stream
-			cin.clear();
-			//discard previous input
-			cin.ignore(123, '\n');
-		}
-	}
+	getArrayValues(array); 
 
-	double smallest,
-		highest;
-	smallest = number[0];
-	highest = number[9];
+	largest = getLargestValue(array);
+	smallest = getSmallestValue(array); 
 
-	//for loop for smallest 
-	for (int i = 0; i < SIZE; i++)
-	{
-		if (number[i] < smallest)
-		{
-			smallest = number[i];
-		}
-	}
-
-	//for loop for the highest 
-	for (int j = 0; j < SIZE; j++)
-	{
-		if (number[j] > highest)
-		{
-			highest = number[j];
-		}
-	}
-
-	cout << "Smallest number in this array is " << smallest << endl;
-	cout << "Highest number in this array is " << highest << endl; 
+	cout << "The largest value in the array is " << largest << endl; 
+	cout << "The smallest value in the array is " << smallest << endl; 
 	return 0; 
+}
+
+int inputValidate(int user_input)
+{
+	while(!(cin>>user_input))
+	{
+		cout << "Error. Please enter valid number" << endl; 
+		//clear the input
+		cin.clear(); 
+		//ignore the previous input
+		cin.ignore(123, '\n'); 
+	}
+	return user_input; 
+}
+
+void getArrayValues(int array[])
+{
+	for (int i = 0; i < SIZE; i++)
+	{
+		cout << "Enter value # " 
+			 << i+1 << " ";
+		array[i] = inputValidate(array[i]);  
+	}
+}
+
+int getLargestValue(int array[])
+{
+	int large = array[9];
+	for (int i = 0; i < SIZE; i++)
+	{
+		if (large < array[i])
+		{
+			large = array[i]; 
+		}
+	}
+	return large; 
+}
+
+int getSmallestValue(int array[])
+{
+	int small = array[0]; 
+	for (int i = 0; i < SIZE; i++)
+	{
+		if (small > array[i])
+		{
+			small = array[i]; 
+		}
+	}
+	return small; 
 }
