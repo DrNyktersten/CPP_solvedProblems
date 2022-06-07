@@ -1,0 +1,76 @@
+#include<iostream>
+#include<string>
+using namespace std; 
+
+/*
+Simple program that calculates how many salsa has been sold 
+as well as displays highest/lowest selling product. 
+*/
+const string salsaNames[5] = { "mild", "medium", "sweet", "hot", "zesty" }; 
+
+const int types = 5; 
+
+int main()
+{
+	int total = 0,        //accumulator
+		highest,
+		lowest; 
+	string high,
+		   low; 
+	int soldSalsa[types]; //for each sold salsa of past month  
+
+	for (int i = 0; i < types; i++)
+	{
+		cout << "How many jars sold for # "
+			 << salsaNames[i] << " ";
+
+		while (!(cin >> soldSalsa[i]) || soldSalsa[i] < 0)
+		{
+			cout << "Error! Try again!"; 
+			//clear the input 
+			cin.clear(); 
+			//ignore previous input
+			cin.ignore(123, '\n'); 
+		}
+		total += soldSalsa[i];  
+	}
+	
+	cout << endl; 
+
+	for (int i = 0; i < types; i++)
+	{
+		cout << "Salsa sold for " << salsaNames[i]
+			 << ": " << soldSalsa[i] << endl; 
+	}
+	cout << "Total sales of each salsa " << total << endl; 
+	
+	//Finding highest selling product
+	highest = soldSalsa[4];
+	high = salsaNames[4]; 
+
+	for (int i = 0; i < types; i++)
+	{
+		if (soldSalsa[i] > highest)
+		{
+			highest = soldSalsa[i];
+			high = salsaNames[i];
+		}
+	}
+
+	//Finding lowest selling product
+	lowest = soldSalsa[0]; 
+	low = salsaNames[0]; 
+	
+	for (int i = 0; i < types; i++)
+	{
+		if (lowest > soldSalsa[i])
+		{
+			lowest = soldSalsa[i]; 
+			low = salsaNames[i];  
+		}
+	}
+	
+	cout << "Highest selling product is " << high << " with total sales of " << highest << endl;  
+	cout << "Lowest selling product is " << low << " with total sales of " << lowest << endl;  
+	return 0; 
+}
