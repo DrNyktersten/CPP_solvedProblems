@@ -1,0 +1,75 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std; 
+
+const int SIZE = 12; 
+
+void getValues(double[]); 
+double inputValidate(double);
+double calculateTotal(double[]);
+double calculateAverage(double[]); 
+
+int main()
+{
+	double rainfall[SIZE]; 
+	double total,
+		   average; 
+
+	cout << "This program will display " << endl; 
+	cout << "rainfall statistics" << endl << endl; 
+
+	getValues(rainfall); 
+	total = calculateTotal(rainfall); 
+	average = calculateAverage(rainfall); 
+
+	cout << endl; 
+	cout << "Total rainfall for the year is " << total << endl; 
+	cout << "Average monthly rainfall is " << average << endl;
+	return 0; 
+}
+
+double inputValidate(double rainfall)
+{
+	while (!(cin >> rainfall) || 0 > rainfall)   
+	{
+		cout << "Error. Please enter valid number! "; 
+		//clear the input
+		cin.clear();
+		//ignore the previous input
+		cin.ignore(123, '\n');    
+	}            
+	return rainfall;   
+}         
+   
+void getValues(double rainfall[])
+{
+	for (int i = 0; i < SIZE; i++)
+	{
+		cout << "Enter the rainfall for "
+			 << "month #" << i + 1 << " ";
+		rainfall[i] = inputValidate(rainfall[i]);
+	}   
+} 
+
+double calculateTotal(double rainfall[])
+{
+	double total = 0; //accumulator 
+	for (int i = 0; i < SIZE; i++) 
+	{
+		total += rainfall[i];                                             
+	} 
+	return total;  
+} 
+
+double calculateAverage(double rainfall[])
+{
+	double average = 0; //accumulator        
+	for (int i = 0; i < SIZE; i++)
+	{
+		average += rainfall[i]; 
+	}
+	average /= 12.0; 
+
+	return average;        
+} 
