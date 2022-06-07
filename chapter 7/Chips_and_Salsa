@@ -42,18 +42,24 @@ int main()
 		cout << "Salsa sold for " << salsaNames[i]
 			 << ": " << soldSalsa[i] << endl; 
 	}
-	cout << "Total sales of each salsa " << total << endl; 
+	cout << "Total sales " << total << endl; 
 	
-	//Finding highest selling product
-	highest = soldSalsa[4];
-	high = salsaNames[4]; 
+	//Finding highest selling products
+	highest = soldSalsa[0];
+	high = salsaNames[0]; 
 
-	for (int i = 0; i < types; i++)
+	for (int i = 1; i < types; i++)
 	{
 		if (soldSalsa[i] > highest)
 		{
 			highest = soldSalsa[i];
 			high = salsaNames[i];
+		}
+		else if (soldSalsa[i] == highest)
+		{
+			highest = soldSalsa[i]; 
+			high += ", "; 
+			high += salsaNames[i]; 
 		}
 	}
 
@@ -61,16 +67,22 @@ int main()
 	lowest = soldSalsa[0]; 
 	low = salsaNames[0]; 
 	
-	for (int i = 0; i < types; i++)
+	for (int i = 1; i < types; i++)
 	{
 		if (lowest > soldSalsa[i])
 		{
 			lowest = soldSalsa[i]; 
 			low = salsaNames[i];  
 		}
+		else if (soldSalsa[i] == lowest)
+		{
+			lowest = soldSalsa[i]; 
+			low += ", "; 
+			low += salsaNames[i]; 
+		}
 	}
 	
-	cout << "Highest selling product is " << high << " with total sales of " << highest << endl;  
-	cout << "Lowest selling product is " << low << " with total sales of " << lowest << endl;  
+	cout << "Highest selling product is " << high << " with total sale of " << highest << endl;  
+	cout << "Lowest selling product is " << low << " with total sale of " << lowest << endl;  
 	return 0; 
 }
