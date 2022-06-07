@@ -82,7 +82,7 @@ int main()
 		}
 	}
 	
-	cout << "Highest selling product is " << high << " with total sale of " << highest << endl;  
-	cout << "Lowest selling product is " << low << " with total sale of " << lowest << endl;  
+	cout << "Highest selling product is " << high << " with sale of " << highest << endl;  
+	cout << "Lowest selling product is " << low << " with sale of " << lowest << endl;  
 	return 0; 
 }
