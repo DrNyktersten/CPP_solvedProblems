@@ -1,0 +1,258 @@
+/*
+Simple Tic-Tac-Toe game designed in cpp 
+*/
+#include <iostream>
+#include <string>
+using namespace std; 
+
+const int ROWS = 3,
+		  COLUMNS = 3; 
+
+void displayBoard(const char [][COLUMNS]);
+void playerOptions(char[][COLUMNS], char);
+bool checkIfWinnerAcross(const char[][COLUMNS], 
+                         const char, 
+                         string& ); 
+bool checkifWinnerDown(const char[][COLUMNS],
+                       const char, 
+                       string&); 
+bool checkIfWinnerDiagonalLeft(const char[][COLUMNS],
+                              const char, 
+                              string&);
+bool checkIfWinnerDiagnoalRigth(const char[][COLUMNS],
+                                const char, 
+                                string&);
+bool checkForWinner(const char[][COLUMNS],
+                    const char,
+                    string&);
+int main()
+{
+	char Board[ROWS][COLUMNS] = {{'#', '#', '#'},
+                                 {'#', '#', '#'},
+                                 {'#', '#', '#'}};
+    string game_winner = ""; 
+	
+	displayBoard(Board);
+	playerOptions(Board, 'X'); 
+    displayBoard(Board);
+
+    for (int i = 0; i < 4; i++)
+    {
+        playerOptions(Board, 'O');
+        displayBoard(Board);
+
+        if(checkForWinner(Board, 'O', game_winner))
+            break; 
+
+        playerOptions(Board, 'X'); 
+        displayBoard(Board);
+
+        if(checkForWinner(Board, 'X', game_winner))
+            break; 
+    }
+
+    cout << "Game winner is " << game_winner << endl;
+	return 0; 
+}
+
+void displayBoard(const char Board [ROWS][COLUMNS])
+{
+	//displaying the content of the board 
+	cout << endl; 
+	for (int i = 0; i < ROWS; i++)
+	{
+		for (int j = 0; j < COLUMNS; j++)
+		{
+			cout << Board[i][j]; 
+		}
+		cout << endl; 
+	}
+	cout << endl;     
+}
+
+void playerOptions(char Board[][COLUMNS], char letter)
+{
+    //prompting the user to enter the row and column
+    //Each player will enter their letter in the board
+    //X for player 1 and O for player 2
+    cout << "Please select a cell to place a " << letter << ": ";
+    cout << endl; 
+    int row, column;
+    bool cell_taken = false;
+    do 
+    {
+        cout << "Which row would you like to place your " << letter << " in? ";
+        cin >> row;
+        cout << "Which column would you like to place your " << letter << " in? ";
+        cin >> column;
+
+        if (Board[row-1][column-1] == '#')
+        {
+            Board[row-1][column-1] = letter; 
+            cell_taken = true;
+        }
+        else 
+        {
+            cout << "Sorry the spot has already been taken. " << endl; 
+            cell_taken = false; 
+        }
+
+    } while (cell_taken == false);
+
+	cout << endl; 
+}
+
+bool checkForWinner(const char Board[][COLUMNS], 
+                    char letter,
+                    string& game_winner)
+{
+    bool winner = false;
+
+    if (checkIfWinnerAcross(Board, letter, game_winner))
+        winner = true; 
+    else if (checkifWinnerDown(Board, letter, game_winner))
+        winner = true;
+    else if (checkIfWinnerDiagonalLeft(Board, letter, game_winner))
+        winner = true;
+    else if (checkIfWinnerDiagnoalRigth(Board, letter, game_winner))
+        winner = true;
+    else
+    {
+        game_winner = "tie!"; 
+        winner = false; 
+    }
+    
+    return winner;
+}
+
+bool checkIfWinnerAcross(const char Board[][COLUMNS],
+                         char letter,
+                         string& game_winner)
+{
+    //Function checks whether the player 1 or 2
+    //has won across the board
+    int letter_across = 0;
+    bool winner = false;
+
+    for (int r = 0; r < ROWS; r++)
+    {
+        for (int c = 0; c < COLUMNS; c++)
+        {
+            if (Board[r][c] == letter)
+                letter_across++;
+        }
+        if (letter_across == 3) 
+        {
+            if (letter == 'X')
+                game_winner = "Player 1"; 
+            else if (letter == 'O')
+                game_winner = "Player 2";
+
+            winner = true;
+            break; 
+        }
+        else 
+        {
+            winner = false; 
+            letter_across = 0; 
+        }
+    }
+    return winner; 
+}
+
+bool checkifWinnerDown(const char Board[][COLUMNS],
+                       char letter,
+                       string& game_winner)
+{   
+    //Function checks whether the player 1 or 2
+    //has won down the board
+    int letter_down = 0; 
+    bool winner = false; 
+    
+    //The reason that we use column loop first
+    //is because each time
+    for (int c = 0; c < COLUMNS; c++)
+    {
+        for (int r = 0; r < ROWS; r++)
+        {
+            if (Board[r][c] == letter)
+                letter_down++; 
+        }
+        if (letter_down == 3)
+        {
+            if (letter == 'X')
+                game_winner = "Player 1"; 
+            else if (letter == 'O')
+                game_winner = "Player 2";
+            
+            winner = true;
+            break; 
+        }
+        else 
+        {
+            winner = false; 
+            letter_down = 0; 
+        }
+    }
+    return winner; 
+}
+
+bool checkIfWinnerDiagonalLeft(const char Board[][COLUMNS],
+                               char letter,
+                               string& game_winner)
+{
+    //Function checks whether the player 1 or 2
+    //has won diagonally from left to right
+    int letter_diagonal = 0; 
+    bool winner = false;
+
+    for (int r = 0; r < ROWS; r++)
+    {
+        if (Board[r][r] == letter)
+            letter_diagonal++;
+    }
+    if (letter_diagonal == 3)
+    {
+        if (letter == 'X')
+            game_winner = "Player 1"; 
+        else if (letter == 'O')
+            game_winner = "Player 2";
+
+        winner = true;
+    }
+    else
+    {
+        winner = false; 
+    }
+    return winner; 
+}
+
+bool checkIfWinnerDiagnoalRigth(const char Board[][COLUMNS],
+                                char letter,
+                                string& game_winner)
+{
+    //Function checks whether the player 1 or 2
+    //has won diagonally from right to left
+    int letter_diagonal = 0;
+    bool winner = false;
+
+    for (int r = 0, c = 2; r < ROWS; r++, c--)
+    {
+         if (Board[r][c] == letter)
+             letter_diagonal++;
+    }
+    if (letter_diagonal == 3)
+    {
+        if (letter == 'X')
+            game_winner = "Player 1"; 
+        else if (letter == 'O')
+            game_winner = "Player 2";
+
+        winner = true;
+    }
+    else 
+    {
+        winner = false; 
+    }
+    return winner; 
+}
