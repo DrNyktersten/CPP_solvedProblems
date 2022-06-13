@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+using namespace std; 
+
+//Function Prototype 
+double avgVector(vector<int>); 
+
+int main()
+{
+	vector<int> values; //A vector to hold values (empty vector without assigning its size)
+	int numValues;      //The number of values
+	double average;     //To hold the average 
+
+	//Get the number of values to average. 
+	cout << "How many values do you wish to average? "; 
+	cin >> numValues; 
+
+	//Get the values and store them in the vector. 
+	for (int i = 0; i < numValues; i++)
+	{
+		int tempValue; 
+		cout << "Enter a value: "; 
+		cin >> tempValue; 
+		values.push_back(tempValue); 
+	}
+	
+	//Get the average of the values and display it. 
+	average = avgVector(values); 
+	cout << "Average: " << average << endl; 
+	return 0; 
+}
+
+double avgVector(vector<int> values)
+{
+	int total = 0; 
+	double avg; 
+
+	if (values.empty()) //Determine if the vector is empty 
+	{
+		cout << "No values to average. " << endl; 
+		avg = 0.0; 
+	}
+	else
+	{
+		for (int i = 0; i < values.size(); i++)
+		{
+			total += values[i]; 
+			avg = total / values.size(); 
+		}
+	}
+	return avg; 
+}
